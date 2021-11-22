@@ -1,0 +1,39 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: django-deployment
+  labels:
+    appapp.kubernetes.io/name: django-deployment
+spec:
+  selector:
+    matchLabels:
+      appapp.kubernetes.io/name: django-dvmn
+  replicas: 3
+  template:
+    metadata:
+      labels: 
+        appapp.kubernetes.io/name: django-dvmn
+    spec:
+      containers:
+        - name: django
+          image: yurastar/django-dvmn:latest
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: django-config
+              
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: django-service
+  labels:
+    appapp.kubernetes.io/name: django-dvmn-service
+spec:
+  selector:
+    appapp.kubernetes.io/name: django-dvmn
+  type: NodePort
+  ports:
+    - targetPort: 80
+      port: 80
