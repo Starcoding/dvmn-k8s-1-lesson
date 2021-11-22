@@ -2,6 +2,8 @@ apiVersion : apps/v1
 kind: Deployment
 metadata:
   name: django-deployment
+  annotations:
+    reloader.stakater.com/auto: "true"
   labels:
     appapp.kubernetes.io/name: django-deployment
 spec:
