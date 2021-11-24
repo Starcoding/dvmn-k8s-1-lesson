@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: migrate-django
+spec:
+  template:
+    spec:
+      containers:
+        - image: yurastar/django-dvmn:latest
+          name: django-migrate
+          command: ["python3", "manage.py", "migrate", "--no-input"]
+          envFrom:
+            - configMapRef:
+                name: django-config
+      restartPolicy: Never
