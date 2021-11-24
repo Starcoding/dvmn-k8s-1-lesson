@@ -5,16 +5,16 @@ metadata:
   annotations:
     reloader.stakater.com/auto: "true"
   labels:
-    appapp.kubernetes.io/name: django-deployment
+    name: django-deployment
 spec:
   selector:
     matchLabels:
-      appapp.kubernetes.io/name: django-dvmn
-  replicas: 3
+      name: django-dvmn
+  # replicas: 3
   template:
     metadata:
       labels: 
-        appapp.kubernetes.io/name: django-dvmn
+        name: django-dvmn
     spec:
       containers:
         - name: django
@@ -31,11 +31,10 @@ kind: Service
 metadata:
   name: django-service
   labels:
-    appapp.kubernetes.io/name: django-dvmn-service
+    name: django-dvmn-service
 spec:
   selector:
-    appapp.kubernetes.io/name: django-dvmn
-  type: NodePort
+    name: django-dvmn
   ports:
-    - targetPort: 80
-      port: 80
+    - port: 12345
+      targetPort: 80

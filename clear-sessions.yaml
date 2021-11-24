@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: clear-sessions-django
+spec:
+  schedule: "0 0 * * 0"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - image: yurastar/django-dvmn:latest
+              name: django-clearsessions
+              command: ["python3", "manage.py", "clearsessions"]
+              envFrom:
+                - configMapRef:
+                    name: django-config
+          restartPolicy: Never
