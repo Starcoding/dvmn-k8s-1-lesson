@@ -10,7 +10,8 @@ spec:
   selector:
     matchLabels:
       name: django-dvmn
-  # replicas: 3
+  # Uncomment line below to start 3 copy of pod
+  # replicas: 3 
   template:
     metadata:
       labels: 
